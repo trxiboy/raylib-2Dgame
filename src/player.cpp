@@ -12,9 +12,9 @@ using std::string;
 
 
 // Player Class Functions:
-void Player::SETPosition(Window* window, Rectangle* playableArea, Vector2 newPos) {
-    newPos.x = std::max(playableArea->x, std::min(newPos.x, playableArea->x + playableArea->width - window->defaultPixel * window->worldScale));
-    newPos.y = std::max(playableArea->y, std::min(newPos.y, playableArea->y + playableArea->height - window->defaultPixel * window->worldScale));
+void Player::SETPosition(Window window, Rectangle playableArea, Vector2 newPos) {
+    newPos.x = std::max(playableArea.x, std::min(newPos.x, playableArea.x + playableArea.width - window.defaultPixel * window.worldScale));
+    newPos.y = std::max(playableArea.y, std::min(newPos.y, playableArea.y + playableArea.height - window.defaultPixel * window.worldScale));
 
     playerPos = newPos;
 }
@@ -35,8 +35,8 @@ void Player::MapSprites() {
     spriteMap["idle"] = 5;
 }
 
-void Player::IterateSprite(Window* window, float* deltaTime) {
-    spriteTimer += *deltaTime;
+void Player::IterateSprite(Window window, float deltaTime) {
+    spriteTimer += deltaTime;
 
     // Change Grid:
     currentGrid.y = spriteMap[moveState];
@@ -56,7 +56,7 @@ void Player::IterateSprite(Window* window, float* deltaTime) {
     //-----------------
 
     // Draw Sprite:
-    Rectangle playerRect = { playerPos.x, playerPos.y, window->defaultPixel*window->worldScale, window->defaultPixel*window->worldScale };
+    Rectangle playerRect = { playerPos.x, playerPos.y, window.defaultPixel*window.worldScale, window.defaultPixel*window.worldScale };
     DrawTexturePro(playerSpriteSheet, spriteRect, playerRect, Vector2{ 0.0f, 0.0f }, 0.0f, WHITE);
     //-----------------
 }

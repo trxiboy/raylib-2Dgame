@@ -140,7 +140,7 @@ int main() {
         Vector2 normalizedMove = NormalizeVector(moveVector);
         Vector2 scaledMove = { normalizedMove.x * player.moveSpeed, normalizedMove.y * player.moveSpeed };
         
-        player.SETPosition(&window, &playableArea, { playerPos.x + scaledMove.x, playerPos.y + scaledMove.y });
+        player.SETPosition(window, playableArea, { playerPos.x + scaledMove.x, playerPos.y + scaledMove.y });
         //==================
 
 
@@ -173,7 +173,7 @@ int main() {
                 }
             }
 
-            player.IterateSprite(&window, &deltaTime);
+            player.IterateSprite(window, deltaTime);
             userInterface.Update(&player.playerHealth, &player.playerMaxHealth, &window);
             
         //==================
