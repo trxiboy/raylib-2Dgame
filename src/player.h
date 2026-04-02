@@ -36,10 +36,10 @@ class Player{
 
         
         Vector2 GETPosition();
-        void SETPosition(Window window, Rectangle playableArea, Vector2 newPostion);
+        void SETPosition(Window* window, Rectangle* playableArea, Vector2 newPostion);
 
         void MapSprites();
-        void IterateSprite(Window window, float deltaTime);
+        void IterateSprite(Window* window, float* deltaTime);
 
     private:
         Vector2 playerPos{ .0f, .0f };

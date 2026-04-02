@@ -1,39 +1,32 @@
 // Libraries:
 #include <raylib.h>
-
-#include "calculations.h"
-
-#include "window.h"
-
-#include "UI.h"
-#include "player.h"
-#include "enemy.h"
-#include "bullet.h"
-
 #include <iostream>
 #include <vector>
 #include <string>
 #include <array>
 #include <cmath>
 
-using std::string;
+#include "calculations.h"
+#include "window.h"
+#include "UI.h"
+#include "player.h"
+#include "enemy.h"
+#include "bullet.h"
 
+using std::string;
 
 // Window Properties:
 Vector2 windowSize = {1280, 720};
 string windowTitle = "Dodge.exe [WIP]";
 
-
 // GameObject Vectors:
 std::vector<Enemy> gameEnemies = {};
 std::vector<Bullet> gameBullets = {};
-
 
 // Game Functions:
 void UnloadAssets() { // [UNFINISHED]
     
 }
-
 
 // Game Main Loop:
 int main() {
@@ -68,34 +61,27 @@ int main() {
     Texture2D grassFrontSprite = LoadTexture("../resources/sprites/grass_front.png");
     //==================
 
-
     // User Interface:
     UI userInterface;
     
-
     // Player Setup:
     Vector2 startingPosition{ windowSize.x/2+window.defaultPixel*window.worldScale/2, windowSize.y/2+window.defaultPixel*window.worldScale/2 };
     Player player(startingPosition, 3);
 
-
     // Enem-(y)|(ies):
     Enemy enemy(Vector2({ 100, 100 }), 2);
     gameEnemies.push_back(enemy);
-
 
     // Load Bullet Class:
     Bullet newBullet(enemy.GETPosition(), player.GETPosition());
     gameBullets.push_back(newBullet);
 
     // Game Loop Variables:
-    float deltaTime;
-
     Vector2 playerPos;
     Vector2 moveVector;
 
-
     while (!WindowShouldClose()) {
-        deltaTime = GetFrameTime();
+        float deltaTime = GetFrameTime();
         
         //==================
         // Draw Map:
@@ -140,10 +126,8 @@ int main() {
         Vector2 normalizedMove = NormalizeVector(moveVector);
         Vector2 scaledMove = { normalizedMove.x * player.moveSpeed, normalizedMove.y * player.moveSpeed };
         
-        player.SETPosition(window, playableArea, { playerPos.x + scaledMove.x, playerPos.y + scaledMove.y });
+        player.SETPosition(&window, &playableArea, { playerPos.x + scaledMove.x, playerPos.y + scaledMove.y });
         //==================
-
-
         BeginDrawing();
         //==================
             window.Clear();
@@ -173,7 +157,7 @@ int main() {
                 }
             }
 
-            player.IterateSprite(window, deltaTime);
+            player.IterateSprite(&window, &deltaTime);
             userInterface.Update(&player.playerHealth, &player.playerMaxHealth, &window);
             
         //==================
